@@ -3,6 +3,8 @@ module.exports = {
     // Các domain được phép sử dụng API
     allowedDomains: [
         'ttkntc.blogspot.com',
+        'ttkt.is-a.dev',
+        'quiz-ttkntc.blogspot.com',
         'localhost' // Thêm localhost để test
     ],
     // Cấu hình Rate Limit: 100 request mỗi 15 phút cho mỗi IP
