@@ -1,0 +1,22 @@
+{
+  "name": "ttkt-chatbot",
+  "version": "1.0.0",
+  "description": "An AI-powered chatbot for Blogger that lets users ask questions about specific posts. Powered by Google Gemini and designed for easy, all-in-one deployment on Render",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bTeam",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "@google/generative-ai": "^0.14.1",
+    "axios": "^1.7.2",
+    "cheerio": "^1.0.0-rc.12",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.3.1"
+  }
+}
