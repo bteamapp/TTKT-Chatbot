@@ -1,0 +1,40 @@
+// src/services/gemini.js
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"}); // Dùng flash cho tốc độ nhanh
+
+async function getAIResponse(articleContent, userQuestion) {
+    const instruction = `
+        Bạn là một trợ lý AI thông minh, thân thiện và hữu ích cho học sinh. 
+        Nhiệm vụ của bạn là trả lời các câu hỏi của học sinh DỰA HOÀN TOÀN vào nội dung bài học được cung cấp dưới đây.
+        KHÔNG được bịa đặt thông tin hoặc trả lời các câu hỏi không liên quan đến nội dung bài học.
+        Hãy trả lời một cách ngắn gọn, rõ ràng và dễ hiểu.
+        
+        --- NỘI DUNG BÀI HỌC ---
+        ${articleContent}
+        --- KẾT THÚC NỘI DUNG ---
+    `;
+
+    try {
+        const chat = model.startChat({
+            history: [
+                { role: "user", parts: [{ text: instruction }] },
+                { role: "model", parts: [{ text: "Chào bạn, tôi đã sẵn sàng. Bạn có câu hỏi gì về bài học này không?" }] }
+            ],
+            generationConfig: {
+                maxOutputTokens: 1000,
+            },
+        });
+
+        const result = await chat.sendMessage(userQuestion);
+        const response = await result.response;
+        const text = response.text();
+        return text;
+    } catch (error) {
+        console.error('Error with Gemini API:', error);
+        return 'Rất tiếc, đã có lỗi xảy ra khi kết nối với AI. Vui lòng thử lại sau.';
+    }
+}
+
+module.exports = { getAIResponse };

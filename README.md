@@ -150,6 +150,7 @@ Follow these steps to get a local copy up and running.
         # .env
         GEMINI_API_KEY="YOUR_GEMINI_API_KEY_HERE"
         ```
+    -   Go to the  `Environment ` tab, add the  `GEMINI_API_KEY ` variable with the value of your  `API key `.
 
 ## Configuration
 

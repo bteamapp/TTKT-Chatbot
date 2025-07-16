@@ -1,0 +1,102 @@
+/* public/css/style.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#chat-container {
+    width: 100%;
+    max-width: 400px; /* Có thể điều chỉnh */
+    height: 100%;
+    max-height: 600px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#chat-messages {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.message {
+    display: flex;
+    max-width: 80%;
+}
+
+.message p {
+    margin: 0;
+    padding: 10px 15px;
+    border-radius: 18px;
+    line-height: 1.4;
+}
+
+.message.user {
+    align-self: flex-end;
+}
+.message.user p {
+    background-color: #007bff;
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.message.bot {
+    align-self: flex-start;
+}
+.message.bot p {
+    background-color: #e9e9eb;
+    color: #333;
+    border-bottom-left-radius: 4px;
+}
+.message.loading p {
+    color: #888;
+    font-style: italic;
+}
+
+#chat-input-container {
+    border-top: 1px solid #e0e0e0;
+    padding: 15px;
+    background: #fff;
+}
+
+#chat-form {
+    display: flex;
+}
+
+#user-input {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 1em;
+    outline: none;
+}
+
+#send-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#send-btn:hover { background-color: #0056b3; }

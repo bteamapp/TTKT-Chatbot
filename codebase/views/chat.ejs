@@ -1,0 +1,31 @@
+<!-- views/chat.ejs -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-messages">
+            <div class="message bot">
+                <p>Chào bạn! Tôi có thể giúp gì về bài học này?</p>
+            </div>
+        </div>
+        <div id="chat-input-container">
+            <form id="chat-form">
+                <input type="text" id="user-input" placeholder="Nhập câu hỏi của bạn..." autocomplete="off" required>
+                <button type="submit" id="send-btn">Gửi</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Truyền postUrl vào script -->
+    <script>
+        const POST_URL = "<%= postUrl %>";
+    </script>
+    <script src="/js/chat.js"></script>
+</body>
+</html>

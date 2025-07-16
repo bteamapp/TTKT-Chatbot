@@ -1,0 +1,56 @@
+<!-- Nút bấm AI Assistant -->
+<style>
+  .ai-chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    font-size: 24px;
+    z-index: 999;
+  }
+  .ai-chat-iframe-container {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 400px;
+    height: 600px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    display: none; /* Ẩn ban đầu */
+    z-index: 1000;
+  }
+</style>
+
+<button class='ai-chat-button' onclick='toggleAIChat()'>AI</button>
+
+<!-- Iframe sẽ được tạo bằng JavaScript -->
+<div id='ai-chat-container'></div>
+
+<script>
+  //<![CDATA[
+  function toggleAIChat() {
+    var container = document.getElementById('ai-chat-container');
+    if (container.innerHTML === '') {
+      // Nếu iframe chưa được tạo, tạo nó
+      var iframe = document.createElement('iframe');
+      iframe.className = 'ai-chat-iframe-container';
+      // Sử dụng expr:src của Blogger để lấy URL bài viết hiện tại
+      iframe.src = 'https://your-render-app.onrender.com/chat?url=' + window.location.href;
+      iframe.style.display = 'block';
+      container.appendChild(iframe);
+    } else {
+      // Nếu đã có, chỉ ẩn/hiện
+      var iframe = container.querySelector('iframe');
+      iframe.style.display = (iframe.style.display === 'none' ? 'block' : 'none');
+    }
+  }
+  //]]>
+</script>
