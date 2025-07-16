@@ -1,4 +1,4 @@
-##### Based on ideas and supported by talented programmers at VDJGO!
+##### Based on ideas and supported by our talented programmers at VDJGO! and bTeam Developer
 ---
 
 # TTKT-Chatbot
