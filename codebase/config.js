@@ -19,10 +19,20 @@ module.exports = {
     // Cấu hình CORS
     corsOptions: {
         origin: function (origin, callback) {
-            // Log for debug
-            console.log('CORS check: Request Origin ->', origin);
-            // Cho phép request từ domain trong whitelist hoặc không có origin (VD: Postman)
-            if (!origin || module.exports.allowedDomains.some(domain => origin.includes(domain))) {
+            // Lấy referer từ request headers nếu origin undefined
+            const referer = this && this.req ? this.req.headers.referer : undefined;
+            console.log('CORS check: Origin ->', origin, '| Referer ->', referer);
+
+            // Kiểm tra whitelist cho cả origin và referer
+            const isAllowed = module.exports.allowedDomains.some(domain =>
+                (origin && origin.includes(domain)) ||
+                (referer && referer.includes(domain))
+            );
+
+            if (!origin && !referer) {
+                // Không có origin và referer, có thể là request nội bộ hoặc tool test
+                callback(new Error('Not allowed by CORS'));
+            } else if (isAllowed) {
                 callback(null, true);
             } else {
                 callback(new Error('Not allowed by CORS'));
