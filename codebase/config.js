@@ -9,10 +9,10 @@ module.exports = {
         'undefined', // For debug
         'localhost' // Thêm localhost để test
     ],
-    // Cấu hình Rate Limit: 100 request mỗi 15 phút cho mỗi IP
+    // Cấu hình Rate Limit: 8 request mỗi 60 phút cho mỗi IP
     rateLimit: {
-        windowMs: 15 * 60 * 1000, 
-        max: 100,
+        windowMs: 60 * 60 * 1000, 
+        max: 8,
         standardHeaders: true,
         legacyHeaders: false,
     },
