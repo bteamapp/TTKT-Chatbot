@@ -6,6 +6,7 @@ module.exports = {
         'ttkt.is-a.dev',
         'quiz-ttkntc.blogspot.com',
         'www.ttkt.is-a.dev',
+        'undefined', // For debug
         'localhost' // Thêm localhost để test
     ],
     // Cấu hình Rate Limit: 100 request mỗi 15 phút cho mỗi IP
