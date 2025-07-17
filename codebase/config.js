@@ -16,30 +16,17 @@ module.exports = {
         standardHeaders: true,
         legacyHeaders: false,
     },
-    // Cấu hình CORS
+
+    // ===================================================================
+    // THAY ĐỔI QUAN TRỌNG Ở ĐÂY
+    // Mở toang cửa CORS, để cho trình duyệt không chặn request.
+    // Việc bảo mật sẽ do middleware `validateUrl` của chúng ta đảm nhiệm.
+    // ===================================================================
     corsOptions: {
-        origin: function (origin, callback) {
-            // Lấy referer từ request headers nếu origin undefined
-            const referer = this && this.req ? this.req.headers.referer : undefined;
-            console.log('CORS check: Origin ->', origin, '| Referer ->', referer);
-
-            // Kiểm tra whitelist cho cả origin và referer
-            const isAllowed = module.exports.allowedDomains.some(domain =>
-                (origin && origin.includes(domain)) ||
-                (referer && referer.includes(domain))
-            );
-
-            if (!origin && !referer) {
-                // Không có origin và referer, có thể là request nội bộ hoặc tool test
-                callback(new Error('Not allowed by CORS'));
-            } else if (isAllowed) {
-                callback(null, true);
-            } else {
-                callback(new Error('Not allowed by CORS'));
-            }
-        },
+        origin: '*', // Cho phép tất cả các origin
         optionsSuccessStatus: 200
     },
+
     // Selector để trích xuất nội dung chính của bài viết trên Blogger
     // Bạn cần Inspect Element trên blog để tìm selector chính xác nhất
     // Thường là '.post-body' hoặc 'article'
