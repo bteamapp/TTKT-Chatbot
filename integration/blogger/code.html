@@ -44,6 +44,7 @@
       iframe.className = 'ai-chat-iframe-container';
       // Sử dụng expr:src của Blogger để lấy URL bài viết hiện tại
       iframe.src = 'https://your-render-app.onrender.com/chat?url=' + window.location.href;
+      iframe.referrerPolicy = 'strict-origin';
       iframe.style.display = 'block';
       container.appendChild(iframe);
     } else {
