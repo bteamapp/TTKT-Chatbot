@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         input.value = '';
 
         // Hiển thị trạng thái "đang tải"
-        const loadingMessage = addMessage('...', 'bot loading');
+        const loadingMessage = addMessage('Đang tạo...', 'bot loading');
 
         try {
             const response = await fetch('/api/ask', {
