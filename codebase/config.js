@@ -17,6 +17,8 @@ module.exports = {
     // Cấu hình CORS
     corsOptions: {
         origin: function (origin, callback) {
+            // Log for debug
+            console.log('CORS check: Request Origin ->', origin);
             // Cho phép request từ domain trong whitelist hoặc không có origin (VD: Postman)
             if (!origin || module.exports.allowedDomains.some(domain => origin.includes(domain))) {
                 callback(null, true);
