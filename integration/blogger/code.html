@@ -1,3 +1,4 @@
+
 <!-- Nút bấm AI Assistant -->
 <style>
   .ai-chat-button {
@@ -6,20 +7,26 @@
     right: 20px;
     background-color: #007bff;
     color: white;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: none;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     font-size: 24px;
     z-index: 999;
+
+    /* Căn giữa icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
   }
   .ai-chat-iframe-container {
     position: fixed;
     bottom: 90px;
     right: 20px;
-    width: 400px;
+    width: 350px;
     height: 600px;
     border: none;
     border-radius: 10px;
@@ -29,28 +36,57 @@
   }
 </style>
 
-<button class='ai-chat-button' onclick='toggleAIChat()'>AI</button>
+<!-- Thư viện tạo biểu tượng -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=chat" />
+
+<!-- Nút bấm AI Assistant -->
+<button class='ai-chat-button' onclick='toggleAIChat()'>
+<span class="material-symbols-outlined">chat</span>
+</button>
 
 <!-- Iframe sẽ được tạo bằng JavaScript -->
 <div id='ai-chat-container'></div>
 
 <script>
   //<![CDATA[
+  // Biến lưu iframe đã tạo
+  let aiIframe;
+
+  // Preload sau 2 giây
+  window.addEventListener('load', function () {
+    setTimeout(() => {
+      // Nếu iframe đã được tạo, không cần làm gì
+      const container = document.getElementById('ai-chat-container');
+      // Tạo iframe chỉ khi trang đã tải xong
+      aiIframe = document.createElement('iframe');
+      // Thêm class để định dạng
+      aiIframe.className = 'ai-chat-iframe-container';
+      // Sử dụng URL hiện tại của trang để truyền vào iframe, thay thế 'your-render-app.onrender.com' bằng URL của ứng dụng Render của bạn
+      aiIframe.src = 'https://your-render-app.onrender.com/chat?url=' + window.location.href;
+      // Thiết lập chính sách referrer
+      aiIframe.referrerPolicy = 'strict-origin';
+      aiIframe.style.display = 'none'; // Ẩn khi preload
+      container.appendChild(aiIframe);
+    }, 2000);
+  });
+
   function toggleAIChat() {
-    var container = document.getElementById('ai-chat-container');
-    if (container.innerHTML === '') {
-      // Nếu iframe chưa được tạo, tạo nó
-      var iframe = document.createElement('iframe');
-      iframe.className = 'ai-chat-iframe-container';
-      // Sử dụng expr:src của Blogger để lấy URL bài viết hiện tại
-      iframe.src = 'https://your-render-app.onrender.com/chat?url=' + window.location.href;
-      iframe.referrerPolicy = 'strict-origin';
-      iframe.style.display = 'block';
-      container.appendChild(iframe);
+    if (aiIframe) {
+      // Nếu iframe đã preload
+      aiIframe.style.display = (aiIframe.style.display === 'none' ? 'block' : 'none');
     } else {
-      // Nếu đã có, chỉ ẩn/hiện
-      var iframe = container.querySelector('iframe');
-      iframe.style.display = (iframe.style.display === 'none' ? 'block' : 'none');
+      // Dự phòng nếu iframe chưa preload (trường hợp hiếm)
+      const container = document.getElementById('ai-chat-container');
+      // Tạo iframe mới
+      aiIframe = document.createElement('iframe');
+      // Thêm class để định dạng
+      aiIframe.className = 'ai-chat-iframe-container';
+      // Sử dụng URL hiện tại của trang để truyền vào iframe, thay thế 'your-render-app.onrender.com' bằng URL của ứng dụng Render của bạn
+      aiIframe.src = 'https://your-render-app.onrender.com/chat?url=' + window.location.href;
+      aiIframe.referrerPolicy = 'strict-origin';
+      // Hiển thị iframe dưới dạng popup
+      aiIframe.style.display = 'block';
+      container.appendChild(aiIframe);
     }
   }
   //]]>
