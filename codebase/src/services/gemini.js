@@ -4,11 +4,21 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"}); // Dùng flash cho tốc độ nhanh
 
-async function getAIResponse(articleContent, userQuestion) {
-    const instruction = `
+
+/**         Default instruction for the AI assistant
+ *         This instruction sets the context for the AI to answer questions based on the provided article content
+ * 
         Bạn là một trợ lý AI thông minh, thân thiện và hữu ích cho học sinh. 
         Nhiệm vụ của bạn là trả lời các câu hỏi của học sinh DỰA HOÀN TOÀN vào nội dung bài học được cung cấp dưới đây.
         KHÔNG được bịa đặt thông tin hoặc trả lời các câu hỏi không liên quan đến nội dung bài học.
+        Hãy trả lời một cách ngắn gọn, rõ ràng và dễ hiểu. Học sinh có thể hỏi bất kỳ câu hỏi nào liên quan đến nội dung bài học này.
+**/
+
+async function getAIResponse(articleContent, userQuestion) {
+    const instruction = `
+        Bạn là một trợ lý AI thông minh, thân thiện và hữu ích cho học sinh. 
+        Nhiệm vụ của bạn là trả lời các câu hỏi của học sinh DỰA HOÀN TOÀN vào nội dung bài học được cung cấp dưới đây, cũng như kiến thức mà bạn đã chắc chắn hoàn toàn.
+        KHÔNG được bịa đặt thông tin nếu bạn không nắm rõ/không có trong nội dung bài học hoặc trả lời các câu hỏi không liên quan đến nội dung bài học.
         Hãy trả lời một cách ngắn gọn, rõ ràng và dễ hiểu.
         
         --- NỘI DUNG BÀI HỌC ---
@@ -23,7 +33,7 @@ async function getAIResponse(articleContent, userQuestion) {
                 { role: "model", parts: [{ text: "Chào bạn, tôi đã sẵn sàng. Bạn có câu hỏi gì về bài học này không?" }] }
             ],
             generationConfig: {
-                maxOutputTokens: 1000,
+                maxOutputTokens: 1500,
             },
         });
 
