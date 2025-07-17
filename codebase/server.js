@@ -34,15 +34,21 @@ app.get('/healthz', (req, res) => {
 // Routes
 app.use('/', apiRoutes);
 
-// Xử lý lỗi 404
+// Xử lý lỗi 404 (Cũng nên cải thiện)
 app.use((req, res, next) => {
-    res.status(404).send("Sorry, can't find that!");
+    // Nếu yêu cầu đến API, trả về JSON. Nếu không, render trang lỗi.
+    if (req.path.startsWith('/api/')) {
+        return res.status(404).json({ error: "Endpoint không tồn tại." });
+    }
+    res.status(404).render('chat', { postUrl: null, error: "404 - Trang không tồn tại" });
 });
 
-// Xử lý lỗi chung
+// Xử lý lỗi chung (SỬA DÒNG NÀY)
+// Dòng 35-38 (ước tính)
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send('Something broke!');
+    // LUÔN trả về JSON nếu có lỗi để frontend có thể xử lý
+    res.status(500).json({ error: 'Đã có lỗi xảy ra ở máy chủ. Vui lòng thử lại sau.' });
 });
 
 app.listen(PORT, () => {
