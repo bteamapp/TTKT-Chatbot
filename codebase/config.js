@@ -1,6 +1,13 @@
 // config.js
 module.exports = {
-
+    // Các domain được phép sử dụng API
+    allowedDomains: [
+        'ttkntc.blogspot.com',
+        'ttkt.is-a.dev',
+        'quiz-ttkntc.blogspot.com',
+        'www.ttkt.is-a.dev',
+        'localhost' // Thêm localhost để test
+    ],
     // Cấu hình Rate Limit: 100 request mỗi 15 phút cho mỗi IP
     rateLimit: {
         windowMs: 15 * 60 * 1000, 
@@ -10,17 +17,17 @@ module.exports = {
     },
     // Cấu hình CORS
     corsOptions: {
-        // Cung cấp một danh sách các origin được phép hoặc một hàm kiểm tra
-        origin: [
-            'ttkntc.blogspot.com',
-            'ttkt.is-a.dev',
-            'quiz-ttkntc.blogspot.com',
-            'localhost' // Thêm localhost để test
-        ],
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Các phương thức được phép
-        allowedHeaders: "Content-Type,Authorization", // Các header được phép
-        credentials: true, // Nếu bạn cần gửi cookie hoặc authorization headers
-        optionsSuccessStatus: 200 // Dành cho các trình duyệt cũ
+        origin: function (origin, callback) {
+            // Log for debug
+            console.log('CORS check: Request Origin ->', origin);
+            // Cho phép request từ domain trong whitelist hoặc không có origin (VD: Postman)
+            if (!origin || module.exports.allowedDomains.some(domain => origin.includes(domain))) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
+        optionsSuccessStatus: 200
     },
     // Selector để trích xuất nội dung chính của bài viết trên Blogger
     // Bạn cần Inspect Element trên blog để tìm selector chính xác nhất
