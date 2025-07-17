@@ -1,4 +1,3 @@
-
 <!-- Nút bấm AI Assistant -->
 <style>
   .ai-chat-button {
@@ -27,7 +26,7 @@
     bottom: 90px;
     right: 20px;
     width: 350px;
-    height: 600px;
+    height: 75vh;
     border: none;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
@@ -49,42 +48,34 @@
 
 <script>
   //<![CDATA[
-  // Biến lưu iframe đã tạo
   let aiIframe;
 
-  // Preload sau 2 giây
   window.addEventListener('load', function () {
     setTimeout(() => {
-      // Nếu iframe đã được tạo, không cần làm gì
       const container = document.getElementById('ai-chat-container');
-      // Tạo iframe chỉ khi trang đã tải xong
+      // Tạo iframe và thêm vào trang
       aiIframe = document.createElement('iframe');
-      // Thêm class để định dạng
       aiIframe.className = 'ai-chat-iframe-container';
-      // Sử dụng URL hiện tại của trang để truyền vào iframe, thay thế 'your-render-app.onrender.com' bằng URL của ứng dụng Render của bạn
-      aiIframe.src = 'https://your-render-app.onrender.com/chat?url=' + window.location.href;
-      // Thiết lập chính sách referrer
+      // Thêm URL của chatbot vào iframe
+      aiIframe.src = 'https://your-chatbot-url.onrender.com/chat?url=' + window.location.href;
       aiIframe.referrerPolicy = 'strict-origin';
-      aiIframe.style.display = 'none'; // Ẩn khi preload
+      aiIframe.style.display = 'none';
       container.appendChild(aiIframe);
     }, 2000);
   });
 
   function toggleAIChat() {
     if (aiIframe) {
-      // Nếu iframe đã preload
+      // Nếu iframe đã tồn tại, chỉ cần hiển thị hoặc ẩn nó
       aiIframe.style.display = (aiIframe.style.display === 'none' ? 'block' : 'none');
     } else {
-      // Dự phòng nếu iframe chưa preload (trường hợp hiếm)
+      // Nếu iframe chưa được tạo, tạo mới và thêm vào trang
       const container = document.getElementById('ai-chat-container');
-      // Tạo iframe mới
       aiIframe = document.createElement('iframe');
-      // Thêm class để định dạng
       aiIframe.className = 'ai-chat-iframe-container';
-      // Sử dụng URL hiện tại của trang để truyền vào iframe, thay thế 'your-render-app.onrender.com' bằng URL của ứng dụng Render của bạn
-      aiIframe.src = 'https://your-render-app.onrender.com/chat?url=' + window.location.href;
+      // Thêm URL của chatbot vào iframe
+      aiIframe.src = 'https://your-chatbot-url.onrender.com/chat?url=' + window.location.href;
       aiIframe.referrerPolicy = 'strict-origin';
-      // Hiển thị iframe dưới dạng popup
       aiIframe.style.display = 'block';
       container.appendChild(aiIframe);
     }
