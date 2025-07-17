@@ -6,51 +6,51 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const config = require('./config');
 const apiRoutes = require('./src/routes/api');
+// Giả sử bạn đã tạo file này theo hướng dẫn trước
+const { verifyApiKey } = require('./src/middleware/auth'); 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middlewares
-app.use(cors(config.corsOptions)); // CORS phải được đặt trước các routes
+// --- CÁC MIDDLEWARE TOÀN CỤC KHÔNG LIÊN QUAN ĐẾN CORS ---
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Thiết lập view engine
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Phục vụ các file tĩnh từ thư mục 'public'
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Rate Limiting
-const limiter = rateLimit(config.rateLimit);
-app.use('/api/', limiter); // Chỉ áp dụng rate limit cho các API endpoint
-
-// Health Check Endpoint
+// --- ROUTE CÔNG KHAI, KHÔNG CẦN CORS ---
+// Dòng 15-17 (ước tính)
+// Health Check Endpoint cho Render - Đặt trước tất cả các middleware bảo mật
 app.get('/healthz', (req, res) => {
     res.status(200).json({ status: 'ok', message: 'Service is healthy' });
 });
 
-// Routes
-app.use('/', apiRoutes);
+// --- CÁC MIDDLEWARE BẢO MẬT ÁP DỤNG CHO CÁC ROUTE PHÍA SAU ---
+// Dòng 20-23 (ước tính)
+// Giờ CORS và các middleware khác sẽ không ảnh hưởng đến /healthz
+const corsMiddleware = cors(config.corsOptions);
+const limiter = rateLimit(config.rateLimit);
 
-// Xử lý lỗi 404 (Cũng nên cải thiện)
+// Áp dụng middleware bảo mật cho các route chính
+app.use('/', corsMiddleware, verifyApiKey, apiRoutes); // apiRoutes đã bao gồm cả /chat và /api/ask
+app.use('/api/', limiter); // Chỉ áp dụng rate limit cho /api/
+
+// --- CÁC TRÌNH XỬ LÝ LỖI (Giữ nguyên) ---
+// Xử lý lỗi 404
 app.use((req, res, next) => {
-    // Nếu yêu cầu đến API, trả về JSON. Nếu không, render trang lỗi.
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({ error: "Endpoint không tồn tại." });
     }
     res.status(404).render('chat', { postUrl: null, error: "404 - Trang không tồn tại" });
 });
 
-// Xử lý lỗi chung (SỬA DÒNG NÀY)
-// Dòng 35-38 (ước tính)
+// Xử lý lỗi chung
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    // LUÔN trả về JSON nếu có lỗi để frontend có thể xử lý
     res.status(500).json({ error: 'Đã có lỗi xảy ra ở máy chủ. Vui lòng thử lại sau.' });
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
