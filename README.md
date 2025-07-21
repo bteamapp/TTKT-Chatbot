@@ -8,7 +8,7 @@
 [![Node.js](https://img.shields.io/badge/Node.js-18.x+-43853d.svg)](https://nodejs.org/)
 [![Render](https://img.shields.io/badge/Hosted%20on-Render-46E3B7.svg)](https://render.com)
 
-**TTKT-Chatbot** is an intelligent, context-aware AI assistant designed for Blogger-based Learning Management Systems (LMS). It enhances the learning experience by providing an embeddable chat widget that allows students to ask questions and receive instant, relevant answers based on the content of the specific blog post they are viewing.
+**TTKT-Chatbot** is an intelligent, context-aware AI assistant designed for Blogger, or plain HTML-based Learning Management Systems (LMS). It enhances the learning experience by providing an embeddable chat widget that allows students to ask questions and receive instant, relevant answers based on the content of the specific blog post they are viewing.
 
 The entire service, including the responsive chat UI and the robust backend API, is built with Node.js and designed for seamless, single-instance deployment on [Render](https://render.com).
 
