@@ -263,6 +263,9 @@ This project is optimized for a zero-hassle deployment on Render.
 
 -   [ ] **Conversation History**: Implement session-based chat history to allow for follow-up questions without re-stating context, and sync the chat with our back-end server for multi-devices integration.
 -   [ ] **Admin Dashboard**: A simple UI to view usage statistics and manage blocked IPs.
+-   [ ] **Markdown support**: Add support for rendering AI-generated responses in Markdown format. This will enhance the readability and formatting of the output, especially for code snippets, lists, links, and styled text.
+-   [ ] **Mobile API**: Develop a dedicated API to serve the mobile application. This API will be decoupled from the existing web UI to ensure optimized performance, tailored data structures, and mobile-specific workflows.
+
 
 ## Contributing
 
