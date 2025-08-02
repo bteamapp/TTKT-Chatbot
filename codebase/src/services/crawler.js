@@ -12,14 +12,14 @@ async function fetchAndExtractContent(url) {
         const content = $(config.contentSelector).text();
 
         if (!content) {
-            throw new Error('Could not extract content from the provided URL. Please notify for the students to try again! Hãy liên hệ hỗ trợ qua Messenger https://m.me/ttkntc kèm ảnh chụp vấn đề này!');
+            throw new Error('Could not extract content from the provided URL. Please notify for the students to try again! Hãy liên hệ hỗ trợ qua Messenger Trung Tâm Kiến Thức  kèm ảnh chụp vấn đề này!');
         }
 
         // Dọn dẹp text, loại bỏ khoảng trắng thừa
         return content.replace(/\s\s+/g, ' ').trim();
     } catch (error) {
         console.error(`Error crawling ${url}:`, error);
-        throw new Error('Failed to fetch or parse the article. Please check the URL or the content selector. Hãy liên hệ hỗ trợ qua Messenger https://m.me/ttkntc kèm ảnh chụp vấn đề này!');
+        throw new Error('Failed to fetch or parse the article. Please check the URL or the content selector. Hãy liên hệ hỗ trợ qua Messenger Trung Tâm Kiến Thức kèm ảnh chụp vấn đề này!');
     }
 }
 
