@@ -26,7 +26,7 @@ async function fetchAndExtractContent(url) {
         // Dọn dẹp text, loại bỏ khoảng trắng thừa
         return content.replace(/\s\s+/g, ' ').trim();
     } catch (error) {
-        console.error(`Error crawling ${url}:`, error);
+        console.error('Error crawling %s: %s', url, error);
         throw new Error('Failed to fetch or parse the article. Please check the URL or the content selector. Hãy liên hệ hỗ trợ qua Messenger Trung Tâm Kiến Thức kèm ảnh chụp vấn đề này!');
     }
 }
