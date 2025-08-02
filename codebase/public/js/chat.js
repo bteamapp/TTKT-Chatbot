@@ -1,5 +1,4 @@
 // public/js/chat.js
-// VDJGO! - Tuấn 02 08 25
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('chat-form');
     const input = document.getElementById('user-input');
