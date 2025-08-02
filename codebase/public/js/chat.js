@@ -1,20 +1,24 @@
 // public/js/chat.js
+// VDJGO! - Tuấn 02 08 25
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('chat-form');
     const input = document.getElementById('user-input');
     const messagesContainer = document.getElementById('chat-messages');
+
+    // HÀM `addMessage` đã được chuyển vào `render-markdown.js` và đổi tên thành `addMarkdownMessage`.
+    // Chúng ta sẽ không định nghĩa nó ở đây nữa mà sử dụng `window.addMarkdownMessage` đã có sẵn.
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const question = input.value.trim();
         if (!question) return;
 
-        // Hiển thị câu hỏi của người dùng
-        addMessage(question, 'user');
+        // THAY ĐỔI: Sử dụng hàm render markdown cho tin nhắn của người dùng
+        window.addMarkdownMessage(question, 'user');
         input.value = '';
 
-        // Hiển thị trạng thái "đang tải"
-        const loadingMessage = addMessage('Đang tạo...', 'bot loading');
+        // THAY ĐỔI: Sử dụng hàm render markdown cho trạng thái "đang tải"
+        const loadingMessage = window.addMarkdownMessage('Đang tạo...', 'bot loading');
 
         try {
             const response = await fetch('/api/ask', {
@@ -35,30 +39,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
             
-            // Xóa loading và hiển thị câu trả lời
+            // Xóa loading
             loadingMessage.remove();
-            addMessage(data.answer, 'bot');
+            
+            // THAY ĐỔI: Sử dụng hàm render markdown cho câu trả lời của bot
+            window.addMarkdownMessage(data.answer, 'bot');
 
         } catch (error) {
             loadingMessage.remove();
-            addMessage(`Lỗi: ${error.message}`, 'bot');
+            
+            // THAY ĐỔI: Sử dụng hàm render markdown cho thông báo lỗi
+            window.addMarkdownMessage(`Lỗi: ${error.message}`, 'bot');
             console.error('Fetch error:', error);
         }
     });
 
-    function addMessage(text, type) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${type}`;
-        
-        const p = document.createElement('p');
-        p.textContent = text;
-        
-        messageDiv.appendChild(p);
-        messagesContainer.appendChild(messageDiv);
-        
-        // Cuộn xuống tin nhắn mới nhất
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        
-        return messageDiv;
-    }
+    // Hàm addMessage gốc đã bị xóa và thay thế bằng lời gọi `window.addMarkdownMessage`
 });

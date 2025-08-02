@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Assistant</title>
     <link rel="stylesheet" href="/css/style.css">
+    <!-- THÊM MỚI: Link tới file CSS cho Markdown -->
+    <link rel="stylesheet" href="/css/markdown-styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=send" />
 </head>
 <body>
     <div id="chat-container">
         <div id="chat-messages">
             <div class="message bot">
-                <p>Trước khi bắt đầu, hãy lưu ý rằng AI có thể mắc lỗi. Mọi thông tin chỉ mang tính tham khảo – bạn nên kiểm tra lại để đảm bảo độ chính xác. Chi tiết vui lòng liên hệ <a href="http://m.me/ttkntc" target="_blank">qua Messenger</a>!</p>
+                <p>Trước khi bắt đầu, hãy lưu ý rằng AI có thể mắc lỗi. Mọi thông tin chỉ mang tính tham khảo – bạn nên kiểm tra lại để đảm bảo độ chính xác. Chi tiết vui lòng liên hệ <a href="https://m.me/ttkntc" target="_blank">qua Messenger</a>!</p>
             </div>
             <div class="message bot">
                 <button id="download-chat-btn">Tải xuống đoạn chat</button>
@@ -33,10 +35,14 @@
     <script>
         const POST_URL = "<%= postUrl %>";
     </script>
-    <script src="/js/chat.js"></script>
-    <script src="/js/download-chat.js"></script>
-    <script src="/js/render-markdown.js"></script>
+    
+    <!-- THAY ĐỔI THỨ TỰ: Tải thư viện trước, sau đó mới đến các script sử dụng nó -->
     <!-- Markdown support -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <!-- Các script của bạn -->
+    <script src="/js/render-markdown.js"></script>
+    <script src="/js/chat.js"></script>
+    <script src="/js/download-chat.js"></script>
 </body>
 </html>
