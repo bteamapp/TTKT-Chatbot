@@ -49,7 +49,7 @@ async function getAIResponse(articleContent, userQuestion) {
         return text;
     } catch (error) {
         console.error('Error with Gemini API:', error);
-        return 'Rất tiếc, đã có lỗi xảy ra khi kết nối với AI. Vui lòng thử lại sau.';
+        return 'Rất tiếc, đã có lỗi xảy ra khi kết nối với AI. Vui lòng thử lại sau. Nếu vấn đề vẫn tiếp diễn, hãy liên hệ hỗ trợ qua Messenger https://m.me/ttkntc kèm ảnh chụp lỗi này!'; 
     }
 }
 
