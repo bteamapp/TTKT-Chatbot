@@ -38,21 +38,21 @@ The system is designed for simplicity, security, and scalability. The data flow 
 ```mermaid
 graph TD
     subgraph Student_Browser
-        A[User on Blogger Post] --> B{Clicks AI Button}
-        B --> C[Iframe Loads UI from Render]
+        A["User on Blogger Post"] --> B{"Clicks AI Button"}
+        B --> C["Iframe Loads UI from Render"]
     end
 
     subgraph Render_Service_NodeJS
-        D[Chat UI (EJS/CSS/JS)]
-        E[API Backend (Express)]
-        F[Security Middleware<br/>(CORS, Rate Limit, Validator)]
-        G[Services<br/>(Crawler, Gemini)]
-        H[Config<br/>(Allowed Domains)]
+        D["Chat UI (EJS/CSS/JS)"]
+        E["API Backend (Express)"]
+        F["Security Middleware<br/>(CORS, Rate Limit, Validator)"]
+        G["Services<br/>(Crawler, Gemini)"]
+        H["Config<br/>(Allowed Domains)"]
     end
 
     subgraph External_Services
-        I[Google Gemini API]
-        J[Blogger Post Content]
+        I["Google Gemini API"]
+        J["Blogger Post Content"]
     end
 
     C -- "GET /chat?url=..." --> F
@@ -67,7 +67,6 @@ graph TD
     I -- "Returns Answer" --> G
     G -- "Sends response back" --> E
     E -- "Returns JSON to UI" --> C
-
 ```
 
 ## How It Works
